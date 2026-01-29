@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kinchjarantilla | Creative Developer</title>
   
-  <!-- Google Fonts for premium typography -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Font Awesome for Icons -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -22,6 +22,7 @@
       --text-muted: #94a3b8;
       --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
       --accent-glow: #8b5cf6;
+      --timeline-line: #334155;
     }
 
     * {
@@ -39,37 +40,37 @@
       line-height: 1.6;
     }
 
-    /* Ambient Background Blobs */
+    /* --- Ambient Background Blobs --- */
     .blob {
       position: fixed;
       border-radius: 50%;
       filter: blur(80px);
       z-index: -1;
-      opacity: 0.6;
-      animation: float 10s infinite ease-in-out;
+      opacity: 0.5;
+      animation: float 12s infinite ease-in-out;
     }
     .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #4f46e5; animation-delay: 0s; }
-    .blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #c026d3; animation-delay: 2s; }
-    .blob-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: #0891b2; animation-delay: 4s; }
+    .blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #c026d3; animation-delay: 3s; }
+    .blob-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: #0891b2; animation-delay: 6s; }
 
     @keyframes float {
       0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(30px, -30px); }
+      50% { transform: translate(40px, -40px); }
     }
 
-    /* Navigation */
+    /* --- Navigation --- */
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      padding: 20px 50px;
+      padding: 15px 50px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
       transition: 0.3s ease;
       background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--glass-border);
     }
 
@@ -92,11 +93,12 @@
       color: var(--text-main);
       text-decoration: none;
       font-weight: 500;
+      font-size: 0.95rem;
       transition: color 0.3s;
       position: relative;
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover, .nav-links a.active {
       color: #38bdf8;
     }
 
@@ -122,9 +124,9 @@
       cursor: pointer;
     }
 
-    /* General Section Styles */
+    /* --- General Layout --- */
     section {
-      padding: 80px 20px;
+      padding: 100px 20px;
       max-width: 1100px;
       margin: auto;
     }
@@ -145,22 +147,40 @@
       width: 60px;
       height: 4px;
       background: var(--primary-gradient);
-      margin: 10px auto 0;
+      margin: 15px auto 0;
       border-radius: 2px;
     }
 
-    /* Hero Section */
+    /* --- Glass Cards Utility --- */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 30px;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(168, 85, 247, 0.5);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* --- Hero Section --- */
     #hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: 60px; /* offset for nav */
+      padding-top: 80px;
       text-align: center;
     }
 
     .hero-content {
       z-index: 1;
+      animation: fadeIn 1s ease-out;
     }
 
     .avatar {
@@ -176,12 +196,17 @@
 
     @keyframes pulse-border {
       0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4); }
-      70% { box-shadow: 0 0 0 15px rgba(168, 85, 247, 0); }
+      70% { box-shadow: 0 0 0 20px rgba(168, 85, 247, 0); }
       100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .hero-content h1 {
-      font-size: 4rem;
+      font-size: 3.5rem;
       line-height: 1.1;
       margin-bottom: 20px;
     }
@@ -228,59 +253,96 @@
       box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2);
     }
 
-    /* Glass Cards Utility */
-    .glass-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 30px;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(168, 85, 247, 0.5);
-    }
-
-    /* About Section */
-    .about-grid {
+    /* --- Basic Information / About --- */
+    .info-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .about-text h3 {
-      color: #38bdf8;
-      margin-bottom: 15px;
-      font-size: 1.5rem;
-    }
-
-    .about-text p {
-      color: var(--text-muted);
-      margin-bottom: 20px;
-    }
-
-    .stats {
-      display: flex;
+      grid-template-columns: 1fr;
       gap: 30px;
-      margin-top: 30px;
+    }
+    
+    .info-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
     }
 
-    .stat-item h4 {
-      font-size: 2rem;
-      color: white;
+    .info-item {
+      background: rgba(255,255,255,0.03);
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 3px solid #6366f1;
+    }
+    
+    .info-item label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
       margin-bottom: 5px;
     }
-
-    .stat-item span {
-      color: var(--text-muted);
-      font-size: 0.9rem;
+    
+    .info-item span {
+      font-weight: 600;
+      color: #fff;
     }
 
-    /* Skills Section */
+    /* --- Education Section (Timeline) --- */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background: var(--timeline-line);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    .timeline-item.left { left: 0; text-align: right; }
+    .timeline-item.right { left: 50%; }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      background: #0f172a;
+      border: 3px solid #a855f7;
+      top: 25px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-item.right::after { left: -10px; }
+
+    .timeline-content {
+      padding: 20px;
+      position: relative;
+    }
+    
+    .timeline-date {
+      font-size: 0.9rem;
+      color: #38bdf8;
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    /* --- Skills Section --- */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -289,7 +351,7 @@
 
     .skill-card {
       text-align: center;
-      padding: 25px;
+      padding: 25px 15px;
     }
 
     .skill-card i {
@@ -300,12 +362,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .skill-card span {
-      display: block;
-      font-weight: 600;
-    }
-
-    /* Projects Section */
+    /* --- Projects Section --- */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -315,7 +372,8 @@
     .project-card {
       padding: 0;
       overflow: hidden;
-      position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     .project-img {
@@ -327,17 +385,7 @@
 
     .project-content {
       padding: 25px;
-    }
-
-    .project-content h3 {
-      margin-bottom: 10px;
-      color: #fff;
-    }
-
-    .project-content p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 20px;
+      flex-grow: 1;
     }
 
     .project-link {
@@ -349,11 +397,33 @@
       gap: 8px;
     }
 
-    .project-link:hover {
-      text-decoration: underline;
+    /* --- Certificates Section --- */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
     }
 
-    /* Footer */
+    .cert-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .cert-icon {
+      font-size: 2rem;
+      color: #fbbf24; /* Amber for awards/certs */
+      background: rgba(251, 191, 36, 0.1);
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* --- Footer --- */
     footer {
       text-align: center;
       padding: 60px 20px;
@@ -363,10 +433,23 @@
       background: rgba(15, 23, 42, 0.95);
     }
 
-    /* Animations on Scroll */
+    .social-icons a {
+      color: var(--text-muted);
+      margin: 0 15px;
+      font-size: 1.2rem;
+      transition: color 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+
+    .social-icons a:hover {
+      color: #38bdf8;
+      transform: translateY(-3px);
+    }
+
+    /* --- Scroll Animation Classes --- */
     .hidden {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(40px);
       transition: all 0.8s ease-out;
     }
 
@@ -375,7 +458,7 @@
       transform: translateY(0);
     }
 
-    /* Responsive Design */
+    /* --- Responsive Design --- */
     @media (max-width: 768px) {
       nav { padding: 15px 20px; }
       .menu-btn { display: block; }
@@ -397,14 +480,17 @@
 
       .hero-content h1 { font-size: 2.5rem; }
       
-      .about-grid { grid-template-columns: 1fr; text-align: center; }
-      .stats { justify-content: center; }
+      /* Timeline Mobile Fix */
+      .timeline::after { left: 31px; }
+      .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+      .timeline-item::after { left: 21px; }
+      .timeline-item.left, .timeline-item.right { left: 0; text-align: left; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Ambient Background Effects -->
+  <!-- Ambient Background -->
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
@@ -418,55 +504,90 @@
     <ul class="nav-links">
       <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
       <li><a href="#about" onclick="toggleMenu()">About</a></li>
+      <li><a href="#education" onclick="toggleMenu()">Education</a></li>
       <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
       <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+      <li><a href="#certificates" onclick="toggleMenu()">Certificates</a></li>
     </ul>
   </nav>
 
   <!-- Hero Section -->
   <section id="hero">
     <div class="hero-content">
-      <!-- Random seed image for consistent avatar -->
       <img src="https://picsum.photos/seed/kinchjarantilla/300/300" alt="Profile" class="avatar">
       <h1>Hi, I'm <span class="gradient-text">Kinchjarantilla</span></h1>
-      <p>Web Developer | Student | Programmer crafting digital experiences.</p>
+      <p>Creative Developer & Programmer crafting digital experiences with passion and precision.</p>
       <div class="cta-buttons">
         <a href="#projects" class="btn">View My Work</a>
-        <!-- Updated to mailto: so it still works -->
-        <a href="mailto:yourname@email.com" class="btn btn-outline">Contact Me</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
+  <!-- Basic Information / About Section -->
   <section id="about" class="hidden">
     <h2 class="section-title">About Me</h2>
-    <div class="glass-card about-grid">
-      <div class="about-text">
-        <h3>Passionate about Code</h3>
-        <p>
-          Hello! I'm Kinchjarantilla, a passionate beginner web developer with a drive for perfection. 
-          I focus on building clean, responsive, and user-friendly websites that not only look good 
-          but perform exceptionally well.
+    <div class="glass-card">
+      <div class="info-grid">
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+          I am a passionate developer focused on building clean, responsive, and user-friendly websites. 
+          With a strong foundation in front-end technologies and a growing expertise in interactive design, 
+          I turn complex problems into simple, beautiful, and intuitive interface designs.
         </p>
-        <p>
-          Currently, I am expanding my knowledge in front-end technologies and exploring the world of 
-          interactive design. I enjoy turning complex problems into simple, beautiful, and intuitive 
-          interface designs.
-        </p>
+        
+        <div class="info-details">
+          <div class="info-item">
+            <label>Experience</label>
+            <span>2+ Years</span>
+          </div>
+          <div class="info-item">
+            <label>Specialization</label>
+            <span>Front-End Dev</span>
+          </div>
+          <div class="info-item">
+            <label>Location</label>
+            <span>Philippines</span>
+          </div>
+          <div class="info-item">
+            <label>Email</label>
+            <span>hello@kinch.dev</span>
+          </div>
+        </div>
       </div>
-      <div class="stats">
-        <div class="stat-item">
-          <h4>5+</h4>
-          <span>Projects</span>
+    </div>
+  </section>
+
+  <!-- Education Attainment Section -->
+  <section id="education" class="hidden">
+    <h2 class="section-title">Education</h2>
+    <div class="timeline">
+      <!-- Education 1 -->
+      <div class="timeline-item left">
+        <div class="glass-card timeline-content">
+          <span class="timeline-date">2020 - 2024</span>
+          <h3>Bachelor of Science in Computer Science</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">University of Technology</p>
+          <p style="margin-top: 10px; font-size: 0.9rem;">Specialized in Software Engineering and Web Development. Graduated with Honors.</p>
         </div>
-        <div class="stat-item">
-          <h4>100%</h4>
-          <span>Commitment</span>
+      </div>
+      
+      <!-- Education 2 -->
+      <div class="timeline-item right">
+        <div class="glass-card timeline-content">
+          <span class="timeline-date">2018 - 2020</span>
+          <h3>Senior High School</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">National High School</p>
+          <p style="margin-top: 10px; font-size: 0.9rem;">STEM Strand (Science, Technology, Engineering, and Mathematics).</p>
         </div>
-        <div class="stat-item">
-          <h4>24/7</h4>
-          <span>Learner</span>
+      </div>
+
+      <!-- Education 3 -->
+      <div class="timeline-item left">
+        <div class="glass-card timeline-content">
+          <span class="timeline-date">2023</span>
+          <h3>Full Stack Bootcamp</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Code Academy Online</p>
+          <p style="margin-top: 10px; font-size: 0.9rem;">Intensive 6-month program focusing on MERN Stack.</p>
         </div>
       </div>
     </div>
@@ -489,12 +610,20 @@
         <span>JavaScript</span>
       </div>
       <div class="glass-card skill-card">
+        <i class="fab fa-react"></i>
+        <span>React JS</span>
+      </div>
+      <div class="glass-card skill-card">
         <i class="fab fa-git-alt"></i>
         <span>Git</span>
       </div>
       <div class="glass-card skill-card">
         <i class="fab fa-github"></i>
         <span>GitHub</span>
+      </div>
+      <div class="glass-card skill-card">
+        <i class="fas fa-database"></i>
+        <span>SQL</span>
       </div>
       <div class="glass-card skill-card">
         <i class="fas fa-code"></i>
@@ -512,40 +641,83 @@
         <img src="https://picsum.photos/seed/portfolio1/600/400" alt="Project 1" class="project-img">
         <div class="project-content">
           <h3>Personal Portfolio</h3>
-          <p>A fully responsive personal portfolio website designed with modern UI principles, dark mode, and smooth animations.</p>
+          <p style="color: var(--text-muted); margin: 10px 0;">A fully responsive personal portfolio designed with modern UI principles and dark mode.</p>
           <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
 
-      <!-- Project 2 (Placeholder for future) -->
+      <!-- Project 2 -->
       <div class="glass-card project-card">
         <img src="https://picsum.photos/seed/dashboard/600/400" alt="Project 2" class="project-img">
         <div class="project-content">
-          <h3>Admin Dashboard</h3>
-          <p>A conceptual admin dashboard layout featuring data visualization widgets and a glassmorphic sidebar.</p>
+          <h3>E-Commerce Dashboard</h3>
+          <p style="color: var(--text-muted); margin: 10px 0;">An admin panel featuring data visualization widgets and a glassmorphic sidebar.</p>
           <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
 
-      <!-- Project 3 (Placeholder for future) -->
+      <!-- Project 3 -->
       <div class="glass-card project-card">
         <img src="https://picsum.photos/seed/weather/600/400" alt="Project 3" class="project-img">
         <div class="project-content">
-          <h3>Weather App</h3>
-          <p>A simple weather application fetching real-time data and displaying it with dynamic background gradients.</p>
+          <h3>Weather Forecast App</h3>
+          <p style="color: var(--text-muted); margin: 10px 0;">Real-time weather data application using OpenWeather API with dynamic gradients.</p>
           <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Certificates Section -->
+  <section id="certificates" class="hidden">
+    <h2 class="section-title">Certifications</h2>
+    <div class="cert-grid">
+      <div class="glass-card cert-card">
+        <div class="cert-icon"><i class="fas fa-award"></i></div>
+        <div>
+          <h3>Front-End Web Development</h3>
+          <p style="color: #38bdf8; font-size: 0.9rem;">Meta / Coursera</p>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Issued: Jan 2024</p>
+        </div>
+      </div>
+
+      <div class="glass-card cert-card">
+        <div class="cert-icon"><i class="fab fa-js"></i></div>
+        <div>
+          <h3>JavaScript Algorithms</h3>
+          <p style="color: #38bdf8; font-size: 0.9rem;">FreeCodeCamp</p>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Issued: Nov 2023</p>
+        </div>
+      </div>
+
+      <div class="glass-card cert-card">
+        <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+        <div>
+          <h3>AWS Cloud Practitioner</h3>
+          <p style="color: #38bdf8; font-size: 0.9rem;">Amazon Web Services</p>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Issued: Aug 2023</p>
+        </div>
+      </div>
+
+      <div class="glass-card cert-card">
+        <div class="cert-icon"><i class="fab fa-python"></i></div>
+        <div>
+          <h3>Python for Everybody</h3>
+          <p style="color: #38bdf8; font-size: 0.9rem;">University of Michigan</p>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">Issued: May 2023</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer>
+  <footer id="contact">
     <p>© 2026 Kinchjarantilla. All rights reserved.</p>
-    <div style="margin-top: 10px; font-size: 1.2rem;">
-      <a href="#" style="color: #94a3b8; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
-      <a href="#" style="color: #94a3b8; margin: 0 10px;"><i class="fab fa-linkedin"></i></a>
-      <a href="#" style="color: #94a3b8; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+    <div class="social-icons" style="margin-top: 20px;">
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
     </div>
   </footer>
 
@@ -556,14 +728,43 @@
       navLinks.classList.toggle('active');
     }
 
-    // Scroll Animation Logic
+    // Active Link Highlight on Scroll
+    const sections = document.querySelectorAll('section');
+    const navLi = document.querySelectorAll('nav ul li a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLi.forEach(a => {
+        a.classList.remove('active');
+        if (a.classList.contains(current)) { // logic adjustment
+            a.classList.add('active'); // simplified, strictly matching hrefs is better
+        }
+        if(a.getAttribute('href').includes(current)){
+            a.classList.add('active');
+        }
+      });
+    });
+
+    // Scroll Animation Logic (Intersection Observer)
+    const observerOptions = {
+      threshold: 0.15
+    };
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('show');
         }
       });
-    });
+    }, observerOptions);
 
     const hiddenElements = document.querySelectorAll('.hidden');
     hiddenElements.forEach((el) => observer.observe(el));
