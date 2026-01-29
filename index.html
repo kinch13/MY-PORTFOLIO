@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kinchjarantilla | Creative Developer</title>
+  
+  <!-- Google Fonts for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      --accent-glow: #8b5cf6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Ambient Background Blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.6;
+      animation: float 10s infinite ease-in-out;
+    }
+    .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #4f46e5; animation-delay: 0s; }
+    .blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #c026d3; animation-delay: 2s; }
+    .blob-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: #0891b2; animation-delay: 4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(30px, -30px); }
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: 0.3s ease;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: #38bdf8;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: var(--primary-gradient);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-btn {
+      display: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* General Section Styles */
+    section {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 60px;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: var(--primary-gradient);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Hero Section */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 60px; /* offset for nav */
+      text-align: center;
+    }
+
+    .hero-content {
+      z-index: 1;
+    }
+
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255,255,255,0.2);
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
+      margin-bottom: 25px;
+      animation: pulse-border 3s infinite;
+    }
+
+    @keyframes pulse-border {
+      0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(168, 85, 247, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
+    }
+
+    .hero-content h1 {
+      font-size: 4rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .gradient-text {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-content p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--primary-gradient);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #38bdf8;
+      margin-left: 15px;
+    }
+
+    .btn-outline:hover {
+      background: rgba(56, 189, 248, 0.1);
+      box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2);
+    }
+
+    /* Glass Cards Utility */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 30px;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(168, 85, 247, 0.5);
+    }
+
+    /* About Section */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about-text h3 {
+      color: #38bdf8;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .stat-item h4 {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 5px;
+    }
+
+    .stat-item span {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      text-align: center;
+      padding: 25px;
+    }
+
+    .skill-card i {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .skill-card span {
+      display: block;
+      font-weight: 600;
+    }
+
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .project-content {
+      padding: 25px;
+    }
+
+    .project-content h3 {
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .project-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .project-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 60px 20px;
+      border-top: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      margin-top: 80px;
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    /* Animations on Scroll */
+    .hidden {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+    }
+
+    .show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav { padding: 15px 20px; }
+      .menu-btn { display: block; }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: rgba(15, 23, 42, 0.98);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.4s ease;
+      }
+
+      .nav-links.active { right: 0; }
+
+      .hero-content h1 { font-size: 2.5rem; }
+      
+      .about-grid { grid-template-columns: 1fr; text-align: center; }
+      .stats { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Background Effects -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">Kinch.dev</div>
+    <div class="menu-btn" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero" onclick="toggleMenu()">Home</a></li>
+      <li><a href="#about" onclick="toggleMenu()">About</a></li>
+      <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+      <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-content">
+      <!-- Random seed image for consistent avatar -->
+      <img src="https://picsum.photos/seed/kinchjarantilla/300/300" alt="Profile" class="avatar">
+      <h1>Hi, I'm <span class="gradient-text">Kinchjarantilla</span></h1>
+      <p>Web Developer | Student | Programmer crafting digital experiences.</p>
+      <div class="cta-buttons">
+        <a href="#projects" class="btn">View My Work</a>
+        <!-- Updated to mailto: so it still works -->
+        <a href="mailto:yourname@email.com" class="btn btn-outline">Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="hidden">
+    <h2 class="section-title">About Me</h2>
+    <div class="glass-card about-grid">
+      <div class="about-text">
+        <h3>Passionate about Code</h3>
+        <p>
+          Hello! I'm Kinchjarantilla, a passionate beginner web developer with a drive for perfection. 
+          I focus on building clean, responsive, and user-friendly websites that not only look good 
+          but perform exceptionally well.
+        </p>
+        <p>
+          Currently, I am expanding my knowledge in front-end technologies and exploring the world of 
+          interactive design. I enjoy turning complex problems into simple, beautiful, and intuitive 
+          interface designs.
+        </p>
+      </div>
+      <div class="stats">
+        <div class="stat-item">
+          <h4>5+</h4>
+          <span>Projects</span>
+        </div>
+        <div class="stat-item">
+          <h4>100%</h4>
+          <span>Commitment</span>
+        </div>
+        <div class="stat-item">
+          <h4>24/7</h4>
+          <span>Learner</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="hidden">
+    <h2 class="section-title">My Tech Stack</h2>
+    <div class="skills-grid">
+      <div class="glass-card skill-card">
+        <i class="fab fa-html5"></i>
+        <span>HTML5</span>
+      </div>
+      <div class="glass-card skill-card">
+        <i class="fab fa-css3-alt"></i>
+        <span>CSS3</span>
+      </div>
+      <div class="glass-card skill-card">
+        <i class="fab fa-js"></i>
+        <span>JavaScript</span>
+      </div>
+      <div class="glass-card skill-card">
+        <i class="fab fa-git-alt"></i>
+        <span>Git</span>
+      </div>
+      <div class="glass-card skill-card">
+        <i class="fab fa-github"></i>
+        <span>GitHub</span>
+      </div>
+      <div class="glass-card skill-card">
+        <i class="fas fa-code"></i>
+        <span>VS Code</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="hidden">
+    <h2 class="section-title">Featured Projects</h2>
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <div class="glass-card project-card">
+        <img src="https://picsum.photos/seed/portfolio1/600/400" alt="Project 1" class="project-img">
+        <div class="project-content">
+          <h3>Personal Portfolio</h3>
+          <p>A fully responsive personal portfolio website designed with modern UI principles, dark mode, and smooth animations.</p>
+          <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Project 2 (Placeholder for future) -->
+      <div class="glass-card project-card">
+        <img src="https://picsum.photos/seed/dashboard/600/400" alt="Project 2" class="project-img">
+        <div class="project-content">
+          <h3>Admin Dashboard</h3>
+          <p>A conceptual admin dashboard layout featuring data visualization widgets and a glassmorphic sidebar.</p>
+          <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Project 3 (Placeholder for future) -->
+      <div class="glass-card project-card">
+        <img src="https://picsum.photos/seed/weather/600/400" alt="Project 3" class="project-img">
+        <div class="project-content">
+          <h3>Weather App</h3>
+          <p>A simple weather application fetching real-time data and displaying it with dynamic background gradients.</p>
+          <a href="#" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Kinchjarantilla. All rights reserved.</p>
+    <div style="margin-top: 10px; font-size: 1.2rem;">
+      <a href="#" style="color: #94a3b8; margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+      <a href="#" style="color: #94a3b8; margin: 0 10px;"><i class="fab fa-linkedin"></i></a>
+      <a href="#" style="color: #94a3b8; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.classList.toggle('active');
+    }
+
+    // Scroll Animation Logic
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    });
+
+    const hiddenElements = document.querySelectorAll('.hidden');
+    hiddenElements.forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>
